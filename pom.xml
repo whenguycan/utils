@@ -7,7 +7,7 @@
 	<version>0.0.1</version>
 
 	<properties>
-		<jdk.version>1.7</jdk.version>
+		<jdk.version>1.8</jdk.version>
 		<gson.version>2.2.4</gson.version>
 		<poi.version>3.10.1</poi.version>
 		<hibernate.version>3.6.10.Final</hibernate.version>
@@ -17,6 +17,7 @@
 		<zxing.version>3.3.0</zxing.version>
 		<guava.version>21.0</guava.version>
 		<freemarker.version>2.3.23</freemarker.version>
+		<netty.version>4.1.8.Final</netty.version>
 	</properties>
 
 	<build>
@@ -26,8 +27,8 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.5.1</version>
 					<configuration>
-						<source>1.7</source>
-						<target>1.7</target>
+						<source>${jdk.version}</source>
+						<target>${jdk.version}</target>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -39,6 +40,41 @@
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>2.7.6</version>
+		</dependency>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.9.0</version>
+		</dependency>
+		<dependency>
+			<groupId>c3p0</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.8.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20090211</version>
+		</dependency>
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>${netty.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>

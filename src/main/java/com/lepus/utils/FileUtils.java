@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,8 +22,9 @@ import java.util.Map;
  */
 public class FileUtils {
 
-	private static String PROJECT_NAME = "teacherblog";
-	private static String TEMPLATE_NAME = "2017_12_08_11_52_22";
+	private static String PROJECT_NAME = "remotetrain";
+	private static String TEMPLATE_NAME = "2018_02_24_16_57_41";
+	private static String ROOT = "D:\\Tomcat\\apache-tomcat-7.0.59.5\\webapps\\" + PROJECT_NAME;
 	
 	private static String FILE_SEPARATOR = "\\";
 	private static String DESKTOP = "C:\\Users\\Administrator\\Desktop\\geermu_diff\\" + PROJECT_NAME;
@@ -34,10 +36,9 @@ public class FileUtils {
 	 * 测试
 	 */
 	public static void main(String[] args){
-		String root = "D:\\Tomcat\\apache-tomcat-7.0.59.2\\webapps\\" + PROJECT_NAME;
 		String curr = curr();
 		String target = DESKTOP + FILE_SEPARATOR + PROJECT_NAME + "_" + curr;
-		match(root, TEMPLATE_NAME, target, curr);
+		match(ROOT, TEMPLATE_NAME, target, curr);
 	}
 	
 	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
@@ -105,13 +106,14 @@ public class FileUtils {
 	private static void copyFile(String source, String target){
 		System.out.println("copying file... " + source);
 		try {
-			FileInputStream fis = new FileInputStream(source);
-			FileOutputStream fos = new FileOutputStream(target);
-			FileChannel fci = fis.getChannel();
-			FileChannel fco = fos.getChannel();
-			fco.write(fci.map(FileChannel.MapMode.READ_ONLY, 0, fci.size()));
-			fco.close();
-			fci.close();
+//			FileInputStream fis = new FileInputStream(source);
+//			FileOutputStream fos = new FileOutputStream(target);
+//			FileChannel fci = fis.getChannel();
+//			FileChannel fco = fos.getChannel();
+//			fco.write(fci.map(FileChannel.MapMode.READ_ONLY, 0, fci.size()));
+//			fco.close();
+//			fci.close();
+			Files.copy(new File(source).toPath(), new FileOutputStream(new File(target)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

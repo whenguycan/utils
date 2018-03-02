@@ -30,9 +30,9 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 public class QRCodeUtils {
 
 	public static void main(String[] args){
-		String realPath = "C:\\Users\\Administrator\\Desktop\\qr.png";
+		String realPath = "C:\\Users\\Administrator\\Desktop\\app-release-233.png";
 		String logoPath = "";
-		QRCodeUtils.createImageFile("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDF64J+1NeSKQkOivOGju6v0EW+vSdMDpafMDtfSTDVk4RHaTXchMABN7MJNm0rvWKYtcozr2/rnEr3m6vQHSypAQHBu50ymlg1rnp3pkI8i5G9vL7l0aRcEJeNQr2Bb7DdlL1LBtvLXJVX/HHyXzhccLA32YBgqBhouPS7Tv7GFXSqvbPd2LnJPLvichSHL+ofX4EaZm3h5jxdOWfhrEZXu69QXcm4d/pkz6RkfQALuElRdF8mRaAZeaGKMvbV1iBQ8ociiGyIpbpxjCMvyWoKQBpyCKl1OztS4+GrxqbaPjGJw7fLVDqdgjJfih1mnB9AVzhlJ2XHCS2En//dEZs3 jim@cit.com", 255, 255, new File(logoPath), true,new File(realPath));
+		QRCodeUtils.createImageFile("http://192.168.1.233:8080/jcsj/upload/app-release.apk", 180, 180, new File(logoPath), true,new File(realPath));
 		
 	}
 	

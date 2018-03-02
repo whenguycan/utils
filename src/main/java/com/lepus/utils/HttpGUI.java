@@ -38,13 +38,12 @@ public class HttpGUI {
 	public static final String COOKIE_HOLDER_TOKEN = "[token]";
 	public static final String COOKIE_HOLDER_SERVER = "[server]";
 	public static final String COOKIE_VAL = COOKIE_HOLDER_TOKEN + "; Path=/" + COOKIE_HOLDER_SERVER + "/; HttpOnly";
-	public static final String HOST_8080 = "http://192.168.1.105:8080";
-	public static final String HOST_28080 = "http://192.168.1.105:28080";
-	public static final String HOST_38080 = "http://192.168.1.105:38080";
 	public static final String URL_LOGIN = "/mobile/login.do";
 	public static final String URL_AUTHENTICATION = "/mobile/authentication.do";
-	public static final String USERNAME_DEFAULT = "alice";
+	public static final String USERNAME_DEFAULT = "red";
 	public static final String PASSWORD_DEFAULT = "000000";
+	public static final String USERNAME_STU_DEFAULT = "G123456794";
+	public static final String PASSWORD_STU_DEFAULT = "000000";
 
 	public static class JsonResponse {
 		String result_code;
@@ -184,18 +183,24 @@ public class HttpGUI {
 			authentication();
 		}
 
+		//TODO
 		void initServers(){
-			serverMap.put("jcsj", new Server("jcsj", HOST_8080));
-//			serverMap.put("educationoa", new Server("educationoa", HOST_8080));
-//			serverMap.put("security", new Server("security", HOST_8080));
-//			serverMap.put("performance", new Server("performance", HOST_28080));
-//			serverMap.put("evaluate", new Server("evaluate", HOST_28080));
-			serverMap.put("exam", new Server("exam", HOST_28080));
-			serverMap.put("schooloa", new Server("schooloa", HOST_38080));
+			serverMap.put("jcsj", new Server("jcsj", "http://192.168.1.105:8080"));
+			
+//			serverMap.put("performance", new Server("performance", "http://192.168.1.105:28080"));
+//			serverMap.put("evaluate", new Server("evaluate", "http://192.168.1.105:28080"));
+//			serverMap.put("exam", new Server("exam", "http://192.168.1.105:28080"));
+
+//			serverMap.put("schooloa", new Server("schooloa", "http://192.168.1.105:38080"));
+//			serverMap.put("student", new Server("student", "http://192.168.1.105:38080"));
+			
+//			serverMap.put("educationoa", new Server("educationoa", "http://192.168.1.105:58080"));
+//			serverMap.put("security", new Server("security", "http://192.168.1.105:58080"));
 		}
 
 		void login(){
-			String url = HOST_8080 + "/jcsj" + URL_LOGIN + "?username=" + username + "&password=" + password;
+			String url = serverMap.get("jcsj").serverUrl + "/jcsj" + URL_LOGIN + "?username=" + username + "&password=" + password;
+			System.out.println(url);
 			String json = HttpUtils.post(url);
 			sign = getFromJsonResponse(json, DATA_KEY_SIGN);
 		}
@@ -214,9 +219,11 @@ public class HttpGUI {
 			}
 		}
 		
+		//TODO
 		void initTemplateUrlList(){
 			
-//			templateUrlList.add("/mobile/authentication.do?username=" + USERNAME_DEFAULT + "&sign=" + sign);
+			templateUrlList.add("/mobile/authentication.do?username=" + USERNAME_DEFAULT + "&sign=");
+			templateUrlList.add("/mobile/appInfo.do");
 			
 //			templateUrlList.add("/mobile/tree/dept.do?nodeId=402880524c78d383014c7919be290003");
 //			templateUrlList.add("/mobile/judge/evaluate.do?studentId=40288105609057af01609063da010027");
@@ -243,10 +250,10 @@ public class HttpGUI {
 //			templateUrlList.add("/mobile/vacation/save.do?applicantName=alice&startDate=2018-01-17&endDate=2018-01-18&days=2&reason=lalala");
 //			templateUrlList.add("/mobile/vacation/audit.do?id=402881e96101a97c016101b47ab10005&state=2&opinion=lax");
 			
-			templateUrlList.add("/mobile/exam/examMap.do");
-			templateUrlList.add("/mobile/exam/examDetail.do?examId=402881e5609aeaf801609fcbb99b0036");
-			templateUrlList.add("/mobile/exam/roomList.do?examId=402881e5609aeaf801609fcbb99b0036");
-			templateUrlList.add("/mobile/exam/subjectList.do?examId=402881e5609aeaf801609fcbb99b0036");
+//			templateUrlList.add("/mobile/exam/examMap.do");
+//			templateUrlList.add("/mobile/exam/examDetail.do?examId=402881e5609aeaf801609fcbb99b0036");
+//			templateUrlList.add("/mobile/exam/roomList.do?examId=402881e5609aeaf801609fcbb99b0036");
+//			templateUrlList.add("/mobile/exam/subjectList.do?examId=402881e5609aeaf801609fcbb99b0036");
 			
 		}
 
@@ -280,10 +287,7 @@ public class HttpGUI {
 			comboxUser.setSize(dimTextField);
 			comboxUser.setLocation(0, 0);
 			comboxUser.addItem("admin");
-			comboxUser.addItem("alice");
-			comboxUser.addItem("jim");
-			comboxUser.addItem("bill");
-			comboxUser.addItem("tom");
+			comboxUser.addItem("wang");
 			comboxUser.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e){
 					String text = (String)comboxUser.getSelectedItem();
