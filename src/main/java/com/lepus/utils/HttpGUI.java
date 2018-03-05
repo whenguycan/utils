@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,10 +41,13 @@ public class HttpGUI {
 	public static final String COOKIE_VAL = COOKIE_HOLDER_TOKEN + "; Path=/" + COOKIE_HOLDER_SERVER + "/; HttpOnly";
 	public static final String URL_LOGIN = "/mobile/login.do";
 	public static final String URL_AUTHENTICATION = "/mobile/authentication.do";
-	public static final String USERNAME_DEFAULT = "red";
+	public static final String USERNAME_DEFAULT = "alice";
 	public static final String PASSWORD_DEFAULT = "000000";
 	public static final String USERNAME_STU_DEFAULT = "G123456794";
 	public static final String PASSWORD_STU_DEFAULT = "000000";
+	
+	public static final String HOST_DEFAULT_8080 = "http://192.168.1.105:8080";
+	public static final String HOST_DEFAULT_28080 = "http://192.168.1.105:28080";
 
 	public static class JsonResponse {
 		String result_code;
@@ -185,11 +189,11 @@ public class HttpGUI {
 
 		//TODO
 		void initServers(){
-			serverMap.put("jcsj", new Server("jcsj", "http://192.168.1.105:8080"));
+			serverMap.put("jcsj", new Server("jcsj", HOST_DEFAULT_8080));		//http://192.168.1.233:8080
 			
-//			serverMap.put("performance", new Server("performance", "http://192.168.1.105:28080"));
+			serverMap.put("performance", new Server("performance", HOST_DEFAULT_28080));
 //			serverMap.put("evaluate", new Server("evaluate", "http://192.168.1.105:28080"));
-//			serverMap.put("exam", new Server("exam", "http://192.168.1.105:28080"));
+//			serverMap.put("exam", new Server("exam", HOST_DEFAULT_28080));		//http://192.168.1.231:8081
 
 //			serverMap.put("schooloa", new Server("schooloa", "http://192.168.1.105:38080"));
 //			serverMap.put("student", new Server("student", "http://192.168.1.105:38080"));
@@ -222,8 +226,12 @@ public class HttpGUI {
 		//TODO
 		void initTemplateUrlList(){
 			
-			templateUrlList.add("/mobile/authentication.do?username=" + USERNAME_DEFAULT + "&sign=");
-			templateUrlList.add("/mobile/appInfo.do");
+//			templateUrlList.add("/mobile/authentication.do?username=" + USERNAME_DEFAULT + "&sign=");
+//			templateUrlList.add("/mobile/appInfo.do");
+//			templateUrlList.add("/mobile/score/examCountZongfen.do?examId=402881e5609aeaf801609fcbb99b0036");
+//			templateUrlList.add("/mobile/score/banjiScore.do?examId=402881e5609aeaf801609fc671180004");
+			templateUrlList.add("/mobile/examine/examinePlanList.do?yongHuName=沈");
+			
 			
 //			templateUrlList.add("/mobile/tree/dept.do?nodeId=402880524c78d383014c7919be290003");
 //			templateUrlList.add("/mobile/judge/evaluate.do?studentId=40288105609057af01609063da010027");
@@ -380,7 +388,18 @@ public class HttpGUI {
 						Map<String, Object> headers = new HashMap<String, Object>();
 						String cookie = COOKIE_VAL.replace(COOKIE_HOLDER_TOKEN, server.token).replace(COOKIE_HOLDER_SERVER, server.name);
 						headers.put(COOKIE_KEY, cookie);
-						String json = HttpUtils.post(url, headers, null);
+						Map<String, Object> params_ = new HashMap<String, Object>();
+						String url_ = url.substring(0, url.indexOf("?"));
+						String params = url.substring(url.indexOf("?") + 1);
+						String[] arr = params.split("&");
+						Arrays.asList(arr).stream().forEach(par -> {
+							if(par.contains("=") && par.indexOf("=") != par.length() - 1){
+								String key = par.substring(0, par.indexOf("="));
+								String val = par.substring(par.indexOf("=") + 1);
+								params_.put(key, val);
+							}
+						});
+						String json = HttpUtils.post(url_, headers, params_);
 						textAreaTest.setText(System.currentTimeMillis() + formatJson(json));
 					}
 				});
