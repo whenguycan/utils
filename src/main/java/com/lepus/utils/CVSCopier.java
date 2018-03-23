@@ -28,7 +28,10 @@ public class CVSCopier {
 	public static Map<String, String> getDeployMap(){
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("jcsj", "D:\\Tomcat\\apache-tomcat-7.0.59\\webapps\\jcsj\\");
-		map.put("exam", "D:\\Tomcat\\apache-tomcat-7.0.59.2\\webapps\\exam\\");
+		map.put("performance", "D:\\Tomcat\\apache-tomcat-7.0.59.2\\webapps\\performance\\");
+		map.put("schooloa", "D:\\Tomcat\\apache-tomcat-7.0.59.3\\webapps\\schooloa\\");
+		map.put("educationoa", "D:\\Tomcat\\apache-tomcat-7.0.59.5\\webapps\\educationoa\\");
+		map.put("security", "D:\\Tomcat\\apache-tomcat-7.0.59.5\\webapps\\security\\");
 		return map;
 	}
 
@@ -92,10 +95,12 @@ public class CVSCopier {
 		list.add(file);
 		String pureName = file.getName().replace(HOLDER_SUFFIX_CLASS, "").replace(HOLDER_SUFFIX_JAVA, "");
 		String pureName$ = pureName + HOLDER_DOLLAR;
-		Arrays.asList(file.getParentFile().listFiles())
+		if(file.getParentFile().listFiles() != null){
+			Arrays.asList(file.getParentFile().listFiles())
 			.stream()
 			.filter(f -> f.getName().contains(pureName$))
 			.forEach(f -> list.add(f));
+		}
 		return list;
 	}
 	
@@ -112,7 +117,12 @@ public class CVSCopier {
 		if(!folder.exists())
 			folder.mkdirs();
 		try {
-			Files.copy(new File(source).toPath(), new FileOutputStream(new File(target)));
+			File file = new File(source);
+			if(file.exists()){
+				Files.copy(new File(source).toPath(), new FileOutputStream(new File(target)));
+				System.out.println("copied : " + target);
+			}else
+				System.out.println("file not found in source : " + source);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("failed to copy : " + target);
