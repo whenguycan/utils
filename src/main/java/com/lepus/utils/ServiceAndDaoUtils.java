@@ -13,12 +13,21 @@ import java.util.Date;
  */
 public class ServiceAndDaoUtils {
 	
-	public static final String PROJECT_NAME = "educationoa geermu";
-	public static final String MODULE_NAME = "mobile\\vacation";
-	public static final String MODULE_PKG_NAME = "mobile.vacation";
+	public static final String PROJECT_NAME = "security geermu2";
+	public static final String MODULE_NAME = "mobile\\homework";
+	public static final String MODULE_PKG_NAME = "mobile.homework";
 	public static final String IGENERIC_DAO_NAME = "IGenericDAO";
 	public static final String GENERIC_DAO_NAME = "GenericDAO";
-	public static final String[] names = {"Vacation"};
+	public static final String[] names = {"Homework"};
+	
+	private static String getAuthor(){
+		return "wangchenyu@cit";
+	}
+	
+	private static String getDate(){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(new Date());
+	}
 
 	public static void main(String[] args){
 		gen();
@@ -43,10 +52,20 @@ public class ServiceAndDaoUtils {
 		}
 	}
 	
+	private static void mkdirs(File file){
+		String absPath = file.getAbsolutePath();
+		String[] paths = absPath.split("\\\\");
+		String folderPath = absPath.replace(paths[paths.length - 1], "");
+		File folder = new File(folderPath);
+		if(!folder.exists())
+			folder.mkdirs();
+	}
+	
 	private static void genBean(String name, String beanPath) throws Exception{
 		String beanFilename = name + ".java";
 		File beanFile = new File(beanPath + beanFilename);
 		if(!beanFile.exists()){
+			mkdirs(beanFile);
 			OutputStream os = new FileOutputStream(beanFile);
 			os.write(genBeanFile(name).getBytes());
 			os.flush();
@@ -58,6 +77,7 @@ public class ServiceAndDaoUtils {
 		String daoFilename = "I" + name + "DAO.java";
 		File daoFile = new File(daoPath + daoFilename);
 		if(!daoFile.exists()){
+			mkdirs(daoFile);
 			OutputStream os = new FileOutputStream(daoFile);
 			os.write(genDaoFile(name).getBytes());
 			os.flush();
@@ -69,6 +89,7 @@ public class ServiceAndDaoUtils {
 		String daoImplFilename = name + "DAO.java";
 		File daoImplFile = new File(daoImplPath + daoImplFilename);
 		if(!daoImplFile.exists()){
+			mkdirs(daoImplFile);
 			OutputStream os = new FileOutputStream(daoImplFile);
 			os.write(genDaoImplFile(name).getBytes());
 			os.flush();
@@ -80,6 +101,7 @@ public class ServiceAndDaoUtils {
 		String serviceFilename = "I" + name + "Service.java";
 		File serviceFile = new File(servicePath + serviceFilename);
 		if(!serviceFile.exists()){
+			mkdirs(serviceFile);
 			OutputStream os = new FileOutputStream(serviceFile);
 			os.write(genServiceFile(name).getBytes());
 			os.flush();
@@ -91,20 +113,12 @@ public class ServiceAndDaoUtils {
 		String serviceImplFilename = name + "Service.java";
 		File serviceImplFile = new File(serviceImplPath + serviceImplFilename);
 		if(!serviceImplFile.exists()){
+			mkdirs(serviceImplFile);
 			OutputStream os = new FileOutputStream(serviceImplFile);
 			os.write(genServiceImplFile(name).getBytes());
 			os.flush();
 			os.close();
 		}
-	}
-	
-	private static String getAuthor(){
-		return "wangchenyu@cit";
-	}
-	
-	private static String getDate(){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		return sdf.format(new Date());
 	}
 	
 	private static String genBeanFile(String name){
