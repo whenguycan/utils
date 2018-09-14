@@ -32,6 +32,8 @@ public class CVSCopier {
 		map.put("schooloa", "D:\\Tomcat\\apache-tomcat-7.0.59.3\\webapps\\schooloa\\");
 		map.put("educationoa", "D:\\Tomcat\\apache-tomcat-7.0.59.5\\webapps\\educationoa\\");
 		map.put("security", "D:\\Tomcat\\apache-tomcat-7.0.59.5\\webapps\\security\\");
+		map.put("evaluate", "D:\\Tomcat\\apache-tomcat-7.0.59.2\\webapps\\evaluate\\");
+		map.put("exam", "D:\\Tomcat\\apache-tomcat-7.0.59.2\\webapps\\exam\\");
 		return map;
 	}
 

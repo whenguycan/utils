@@ -233,6 +233,9 @@ public class Encrypt {
 	}
 	
 	public static void main(String[] args){
-		
+		String x = "aaabbb";
+		String y = "aaabbb\r\n";
+		System.out.println(encrypt(x));
+		System.out.println(encrypt(y));
 	}
 }

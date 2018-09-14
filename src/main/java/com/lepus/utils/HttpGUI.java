@@ -41,13 +41,15 @@ public class HttpGUI {
 	public static final String COOKIE_VAL = COOKIE_HOLDER_TOKEN + "; Path=/" + COOKIE_HOLDER_SERVER + "/; HttpOnly";
 	public static final String URL_LOGIN = "/mobile/login.do";
 	public static final String URL_AUTHENTICATION = "/mobile/authentication.do";
-	public static final String USERNAME_DEFAULT = "alice";
+	public static final String USERNAME_DEFAULT = "jim";
 	public static final String PASSWORD_DEFAULT = "000000";
 	public static final String USERNAME_STU_DEFAULT = "G123456794";
 	public static final String PASSWORD_STU_DEFAULT = "000000";
 	
 	public static final String HOST_DEFAULT_8080 = "http://192.168.1.105:8080";
 	public static final String HOST_DEFAULT_28080 = "http://192.168.1.105:28080";
+	public static final String HOST_DEFAULT_38080 = "http://192.168.1.105:38080";
+	public static final String HOST_DEFAULT_58080 = "http://192.168.1.105:58080";
 
 	public static class JsonResponse {
 		String result_code;
@@ -172,6 +174,7 @@ public class HttpGUI {
 
 		Map<String, Server> serverMap = new HashMap<String, Server>();
 		List<String> templateUrlList = new ArrayList<String>();
+		List<String> userList = new ArrayList<String>();
 
 		String username = "";
 		String password = "";
@@ -180,6 +183,7 @@ public class HttpGUI {
 		public LoginManager(){
 			initServers();
 			initTemplateUrlList();
+			initUserList();
 		}
 
 		void loadCookie(){
@@ -189,17 +193,43 @@ public class HttpGUI {
 
 		//TODO
 		void initServers(){
-			serverMap.put("jcsj", new Server("jcsj", HOST_DEFAULT_8080));		//http://192.168.1.233:8080
 			
-			serverMap.put("performance", new Server("performance", HOST_DEFAULT_28080));
-//			serverMap.put("evaluate", new Server("evaluate", "http://192.168.1.105:28080"));
-//			serverMap.put("exam", new Server("exam", HOST_DEFAULT_28080));		//http://192.168.1.231:8081
-
-//			serverMap.put("schooloa", new Server("schooloa", "http://192.168.1.105:38080"));
-//			serverMap.put("student", new Server("student", "http://192.168.1.105:38080"));
+			initLocalhostServerMap();
 			
-//			serverMap.put("educationoa", new Server("educationoa", "http://192.168.1.105:58080"));
-//			serverMap.put("security", new Server("security", "http://192.168.1.105:58080"));
+		}
+		
+		void initLocalhostServerMap(){
+			
+			serverMap.put("jcsj", new Server("jcsj", HOST_DEFAULT_8080));
+			
+//			serverMap.put("performance", new Server("performance", HOST_DEFAULT_28080));
+//			serverMap.put("evaluate", new Server("evaluate", HOST_DEFAULT_28080));
+//			serverMap.put("exam", new Server("exam", HOST_DEFAULT_28080));
+//
+//			serverMap.put("schooloa", new Server("schooloa", HOST_DEFAULT_38080));
+//			serverMap.put("student", new Server("student", HOST_DEFAULT_38080));
+//			
+			serverMap.put("educationoa", new Server("educationoa", HOST_DEFAULT_58080));
+//			serverMap.put("security", new Server("security", HOST_DEFAULT_58080));
+			
+			
+			
+		}
+		
+		void init233ServerMap(){
+			
+			serverMap.put("jcsj", new Server("jcsj", "http://192.168.1.233:8080"));
+			
+//			serverMap.put("performance", new Server("performance", "http://192.168.1.233:8080"));
+//			serverMap.put("evaluate", new Server("evaluate", "http://192.168.1.231:8081"));
+//			serverMap.put("exam", new Server("exam", "http://192.168.1.231:8081"));
+//
+//			serverMap.put("schooloa", new Server("schooloa", "http://192.168.1.233:8081"));
+//			serverMap.put("student", new Server("student", "http://192.168.1.233:8080"));
+//			
+//			serverMap.put("educationoa", new Server("educationoa", "http://192.168.1.233:8081"));
+//			serverMap.put("security", new Server("security", "http://192.168.1.233:8080"));
+			
 		}
 
 		void login(){
@@ -223,45 +253,20 @@ public class HttpGUI {
 			}
 		}
 		
+		void initUserList(){
+			userList.add("alice");
+			userList.add("tom");
+			userList.add("jim");
+		}
+		
 		//TODO
 		void initTemplateUrlList(){
 			
 //			templateUrlList.add("/mobile/authentication.do?username=" + USERNAME_DEFAULT + "&sign=");
 //			templateUrlList.add("/mobile/appInfo.do");
-//			templateUrlList.add("/mobile/score/examCountZongfen.do?examId=402881e5609aeaf801609fcbb99b0036");
-//			templateUrlList.add("/mobile/score/banjiScore.do?examId=402881e5609aeaf801609fc671180004");
-			templateUrlList.add("/mobile/examine/examinePlanList.do?yongHuName=沈");
 			
-			
-//			templateUrlList.add("/mobile/tree/dept.do?nodeId=402880524c78d383014c7919be290003");
-//			templateUrlList.add("/mobile/judge/evaluate.do?studentId=40288105609057af01609063da010027");
-//			templateUrlList.add("/mobile/judge/evaluateClass.do?classId=40288105606cd34101606d5f1a90002f");
-//			templateUrlList.add("/mobile/inspect/reformDetail.do?dangerId=402881626085fed20160862cbfb10003");
-//			templateUrlList.add("/mobile/inspect/browseDanger.do?resultId=402881626085fed201608660e2360015");
-//			templateUrlList.add("/mobile/office/stateMap.do");
-//			templateUrlList.add("/mobile/office/browseMyRepairApply.do?auditState=0");
-//			templateUrlList.add("/mobile/office/updateRepairApply.do?id=402881e9609575680160959e3af40003&title=xxx&remark=xxxx");
-//			templateUrlList.add("/mobile/contingency/browse_contingency.do?id=402881e960bacf410160bad973c40005");
-//			templateUrlList.add("/mobile/contingency/update_contingencyplan_pre.do?id=402881e960bacf410160bad973c40005");
-//			templateUrlList.add("/mobile/contingency/save_contingency.do?id=402881e960bacf410160bad973c40005&contentText=lalala");
-//			templateUrlList.add("/mobile/score/examMap.do");
-//			templateUrlList.add("/mobile/score/examCountZongfen.do?examId=402881e5609aeaf801609fcbb99b0036&pageNo=2");
-//			templateUrlList.add("/mobile/score/banjiScore.do?examId=402881e5609aeaf801609fcbb99b0036");
-//			templateUrlList.add("/mobile/office/searchTerm.do");
-//			templateUrlList.add("/mobile/office/schoolPlanDetail.do?id=402881056086a504016086e8066d0003");
-//			templateUrlList.add("/mobile/office/saveSchoolPlan.do?remark=lalala");
-//			templateUrlList.add("/mobile/office/updateSchoolPlan.do?id=402881056086a504016086e8066d0003&remark=");
-			
-//			templateUrlList.add("/mobile/tree/edu/dept.do?nodeId=402880524c78d383014c7919be290003");
-//			templateUrlList.add("/mobile/vacation/applicantFindList.do");
-//			templateUrlList.add("/mobile/vacation/auditorFindList.do");
-//			templateUrlList.add("/mobile/vacation/save.do?applicantName=alice&startDate=2018-01-17&endDate=2018-01-18&days=2&reason=lalala");
-//			templateUrlList.add("/mobile/vacation/audit.do?id=402881e96101a97c016101b47ab10005&state=2&opinion=lax");
-			
-//			templateUrlList.add("/mobile/exam/examMap.do");
-//			templateUrlList.add("/mobile/exam/examDetail.do?examId=402881e5609aeaf801609fcbb99b0036");
-//			templateUrlList.add("/mobile/exam/roomList.do?examId=402881e5609aeaf801609fcbb99b0036");
-//			templateUrlList.add("/mobile/exam/subjectList.do?examId=402881e5609aeaf801609fcbb99b0036");
+			//educationoa
+			templateUrlList.add("/mobile/docdispose/dispatch/browseDispatchWithCondition.do");
 			
 		}
 
@@ -294,8 +299,9 @@ public class HttpGUI {
 			final JComboBox<String> comboxUser = new JComboBox<String>();
 			comboxUser.setSize(dimTextField);
 			comboxUser.setLocation(0, 0);
-			comboxUser.addItem("admin");
-			comboxUser.addItem("wang");
+			for(String user : loginManager.userList){
+				comboxUser.addItem(user);
+			}
 			comboxUser.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e){
 					String text = (String)comboxUser.getSelectedItem();
@@ -389,16 +395,19 @@ public class HttpGUI {
 						String cookie = COOKIE_VAL.replace(COOKIE_HOLDER_TOKEN, server.token).replace(COOKIE_HOLDER_SERVER, server.name);
 						headers.put(COOKIE_KEY, cookie);
 						Map<String, Object> params_ = new HashMap<String, Object>();
-						String url_ = url.substring(0, url.indexOf("?"));
-						String params = url.substring(url.indexOf("?") + 1);
-						String[] arr = params.split("&");
-						Arrays.asList(arr).stream().forEach(par -> {
-							if(par.contains("=") && par.indexOf("=") != par.length() - 1){
-								String key = par.substring(0, par.indexOf("="));
-								String val = par.substring(par.indexOf("=") + 1);
-								params_.put(key, val);
-							}
-						});
+						String url_ = url;
+						if(url.contains("?")){
+							url_ = url.substring(0, url.indexOf("?"));
+							String params = url.substring(url.indexOf("?") + 1);
+							String[] arr = params.split("&");
+							Arrays.asList(arr).stream().forEach(par -> {
+								if(par.contains("=") && par.indexOf("=") != par.length() - 1){
+									String key = par.substring(0, par.indexOf("="));
+									String val = par.substring(par.indexOf("=") + 1);
+									params_.put(key, val);
+								}
+							});
+						}
 						String json = HttpUtils.post(url_, headers, params_);
 						textAreaTest.setText(System.currentTimeMillis() + formatJson(json));
 					}

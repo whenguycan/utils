@@ -41,6 +41,26 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.tensorflow</groupId>
+			<artifactId>tensorflow</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>ojdbc</groupId>
+			<artifactId>ojdbc</artifactId>
+			<version>10.2.0.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>net.coobird</groupId>
+			<artifactId>thumbnailator</artifactId>
+			<version>0.4.8</version>
+		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+		</dependency>
+		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
 			<version>2.7.6</version>
@@ -91,6 +111,12 @@
 			<version>${poi.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-scratchpad</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.connector.j.version}</version>
@@ -140,6 +166,11 @@
 			<artifactId>json-lib</artifactId>
 			<version>2.3</version>
 			<classifier>jdk15</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.34</version>
 		</dependency>
 	</dependencies>
 
