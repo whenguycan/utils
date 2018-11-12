@@ -22,24 +22,19 @@ import java.util.Map;
  */
 public class FileUtils {
 
-	private static String TEMPLATE_NAME = "2018_09_14_09_49_19";	// without extension
-
-	private static Project project = new Train();
-	private static String ROOT = project.root();
+	private static Project project = new Train("2018_11_12_09_12_54");	// template without extension
 	private static String FILE_SEPARATOR = "\\";
-	private static String DESKTOP = project.desktop();
-	private static String TEMP = DESKTOP + FILE_SEPARATOR + "comparator";
+	private static String TEMP = project.desktop() + FILE_SEPARATOR + "comparator";
 	private static String SUFFIX = ".fc";
-	private static String[] COPY_IGNORE = { ".jar", ".xls", ".zip", ".png", ".jpg", ".txt", ".gitignore", ".sqls",
-			".properties" };
+	private static String[] COPY_IGNORE = {".txt", ".gitignore", ".sqls", ".properties", ".xml" };
 
 	/**
 	 * 测试
 	 */
 	public static void main(String[] args){
 		String curr = curr();
-		String target = DESKTOP + FILE_SEPARATOR + project.name() + "_" + curr;
-		match(ROOT, TEMPLATE_NAME, target, curr);
+		String target = project.desktop() + FILE_SEPARATOR + project.name() + "_" + curr;
+		match(project.root(), project.template, target, curr);
 	}
 
 	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
@@ -196,7 +191,13 @@ public class FileUtils {
 	}
 
 	static abstract class Project {
-
+		
+		public Project(String template){
+			this.template = template;
+		}
+		
+		private String template;
+		
 		public abstract String name();
 
 		public abstract String tomcat();
@@ -211,6 +212,10 @@ public class FileUtils {
 	}
 
 	static class Jcsj extends Project {
+		
+		public Jcsj(String template){
+			super(template);
+		}
 
 		public String name(){
 			return "jcsj";
@@ -222,6 +227,10 @@ public class FileUtils {
 	}
 
 	static class Educationoa extends Project {
+		
+		public Educationoa(String template){
+			super(template);
+		}
 
 		public String name(){
 			return "educationoa";
@@ -233,6 +242,10 @@ public class FileUtils {
 	}
 
 	static class Schooloa extends Project {
+		
+		public Schooloa(String template){
+			super(template);
+		}
 
 		public String name(){
 			return "schooloa";
@@ -244,6 +257,10 @@ public class FileUtils {
 	}
 
 	static class Train extends Project {
+		
+		public Train(String template){
+			super(template);
+		}
 
 		public String name(){
 			return "train";
@@ -256,12 +273,32 @@ public class FileUtils {
 	}
 
 	static class Study extends Project {
+		
+		public Study(String template){
+			super(template);
+		}
+		
 		public String name(){
 			return "study";
 		}
 
 		public String tomcat(){
 			return "apache-tomcat-7.0.59.2";
+		}
+	}
+	
+	static class RemoteTrain extends Project{
+		
+		public RemoteTrain(String template){
+			super(template);
+		}
+		
+		public String name(){
+			return "remotetrain";
+		}
+
+		public String tomcat(){
+			return "apache-tomcat-7.0.59";
 		}
 	}
 
