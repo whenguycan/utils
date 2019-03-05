@@ -22,16 +22,16 @@ import java.util.Map;
  */
 public class FileUtils {
 
-	private static Project project = new Train("2018_11_12_09_12_54");	// template without extension
+	private static Project project = new StudentGem("2019_03_05_14_38_25"); // template without extension
 	private static String FILE_SEPARATOR = "\\";
 	private static String TEMP = project.desktop() + FILE_SEPARATOR + "comparator";
 	private static String SUFFIX = ".fc";
-	private static String[] COPY_IGNORE = {".txt", ".gitignore", ".sqls", ".properties", ".xml" };
+	private static String[] COPY_IGNORE = {".txt", ".gitignore", ".sqls", ".properties", ".xml", ".mp4", ".flv", ".xls", ".xlsx", ".doc", ".docx"};
 
 	/**
 	 * 测试
 	 */
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		String curr = curr();
 		String target = project.desktop() + FILE_SEPARATOR + project.name() + "_" + curr;
 		match(project.root(), project.template, target, curr);
@@ -39,11 +39,11 @@ public class FileUtils {
 
 	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 
-	private static String curr(){
+	private static String curr() {
 		return sdf.format(new Date());
 	}
 
-	public static void match(String root, String template, String target, String curr){
+	public static void match(String root, String template, String target, String curr) {
 		System.out.println("loading template...");
 		FileComparator fm = deserialize(TEMP, template);
 		if (fm == null) {
@@ -78,7 +78,7 @@ public class FileUtils {
 		System.out.println("mission complete.");
 	}
 
-	private static boolean ifIgnore(String key){
+	private static boolean ifIgnore(String key) {
 		boolean ignore = false;
 		if (COPY_IGNORE != null && COPY_IGNORE.length != 0) {
 			for (String s : COPY_IGNORE) {
@@ -91,7 +91,7 @@ public class FileUtils {
 		return ignore;
 	}
 
-	private static void operate(String root, String path, String target){
+	private static void operate(String root, String path, String target) {
 		String abs = root + path;
 		String absTarget = target + path;
 		File folder = new File(absTarget.substring(0, absTarget.lastIndexOf(FILE_SEPARATOR)));
@@ -100,7 +100,7 @@ public class FileUtils {
 		copyFile(abs, absTarget);
 	}
 
-	private static void copyFile(String source, String target){
+	private static void copyFile(String source, String target) {
 		System.out.println("copying file... " + source);
 		try {
 			// FileInputStream fis = new FileInputStream(source);
@@ -120,20 +120,20 @@ public class FileUtils {
 		private static final long serialVersionUID = 182715362928555363L;
 		private Map<String, String> paths = new HashMap<String, String>();
 
-		public FileComparator(Map<String, String> paths){
+		public FileComparator(Map<String, String> paths) {
 			this.paths.putAll(paths);
 		}
 
-		public Map<String, String> getPaths(){
+		public Map<String, String> getPaths() {
 			return paths;
 		}
 
-		public void setPaths(Map<String, String> paths){
+		public void setPaths(Map<String, String> paths) {
 			this.paths = paths;
 		}
 	}
 
-	private static String serialize(String temp, FileComparator fm, String curr){
+	private static String serialize(String temp, FileComparator fm, String curr) {
 		try {
 			File folder = new File(temp);
 			if (!folder.exists())
@@ -150,7 +150,7 @@ public class FileUtils {
 		return null;
 	}
 
-	private static FileComparator deserialize(String temp, String tag){
+	private static FileComparator deserialize(String temp, String tag) {
 		if (tag == null || "".equals(tag))
 			return null;
 		File file = new File(temp + FILE_SEPARATOR + tag + SUFFIX);
@@ -168,138 +168,170 @@ public class FileUtils {
 		return null;
 	}
 
-	private static Map<String, String> getPaths(String pathRoot){
+	private static Map<String, String> getPaths(String pathRoot) {
 		Map<String, String> map = new HashMap<String, String>();
 		File root = new File(pathRoot);
 		fill(root, pathRoot, map);
 		return map;
 	}
 
-	private static void fill(File file, String filter, Map<String, String> pathMap){
+	private static void fill(File file, String filter, Map<String, String> pathMap) {
 		if (file.isDirectory()) {
 			for (File f : file.listFiles()) {
 				fill(f, filter, pathMap);
 			}
 		} else
-			// pathMap.put(cut(file.getAbsolutePath(), filter),
-			// Encrypt.md5(file));
+		// pathMap.put(cut(file.getAbsolutePath(), filter),
+		// Encrypt.md5(file));
+		if (!ifIgnore(file.getAbsolutePath())) {
 			pathMap.put(cut(file.getAbsolutePath(), filter), Encrypt.md5(file, "\t", "\r\n", "\n", " "));
+		}
 	}
 
-	private static String cut(String path, String filter){
+	private static String cut(String path, String filter) {
 		return path.replace(filter, "");
 	}
 
 	static abstract class Project {
-		
-		public Project(String template){
+
+		public Project(String template) {
 			this.template = template;
 		}
-		
+
 		private String template;
-		
+
 		public abstract String name();
 
 		public abstract String tomcat();
 
-		public String root(){
+		public String root() {
 			return "D:\\Tomcat\\" + tomcat() + "\\webapps\\" + name();
 		}
 
-		public String desktop(){
-			return "C:\\Users\\Administrator\\Desktop\\geermu_diff\\" + name();
+		public String desktop() {
+			return "E:\\Desktop\\geermu_diff\\" + name();
 		}
 	}
 
 	static class Jcsj extends Project {
-		
-		public Jcsj(String template){
+
+		public Jcsj(String template) {
 			super(template);
 		}
 
-		public String name(){
+		public String name() {
 			return "jcsj";
 		}
 
-		public String tomcat(){
+		public String tomcat() {
 			return "apache-tomcat-7.0.59";
 		}
 	}
 
 	static class Educationoa extends Project {
-		
-		public Educationoa(String template){
+
+		public Educationoa(String template) {
 			super(template);
 		}
 
-		public String name(){
+		public String name() {
 			return "educationoa";
 		}
 
-		public String tomcat(){
+		public String tomcat() {
 			return "apache-tomcat-7.0.59.5";
 		}
 	}
 
 	static class Schooloa extends Project {
-		
-		public Schooloa(String template){
+
+		public Schooloa(String template) {
 			super(template);
 		}
 
-		public String name(){
+		public String name() {
 			return "schooloa";
 		}
 
-		public String tomcat(){
+		public String tomcat() {
 			return "apache-tomcat-7.0.59.3";
 		}
 	}
 
 	static class Train extends Project {
-		
-		public Train(String template){
+
+		public Train(String template) {
 			super(template);
 		}
 
-		public String name(){
+		public String name() {
 			return "train";
 		}
 
-		public String tomcat(){
+		public String tomcat() {
 			return "apache-tomcat-7.0.59";
 		}
 
 	}
 
 	static class Study extends Project {
-		
-		public Study(String template){
+
+		public Study(String template) {
 			super(template);
 		}
-		
-		public String name(){
+
+		public String name() {
 			return "study";
 		}
 
-		public String tomcat(){
+		public String tomcat() {
 			return "apache-tomcat-7.0.59.2";
 		}
 	}
+
+	static class RemoteTrain extends Project {
+
+		public RemoteTrain(String template) {
+			super(template);
+		}
+
+		public String name() {
+			return "remotetrain";
+		}
+
+		public String tomcat() {
+			return "apache-tomcat-7.0.59";
+		}
+	}
+
+	static class GuangShun extends Project {
+		public GuangShun(String template) {
+			super(template);
+		}
+
+		public String name() {
+			return "gsdataanalysis";
+		}
+
+		public String tomcat() {
+			return "apache-tomcat-7.0.59";
+		}
+	}
 	
-	static class RemoteTrain extends Project{
-		
-		public RemoteTrain(String template){
+	static class StudentGem extends Project {
+
+		public StudentGem(String template) {
 			super(template);
 		}
 		
 		public String name(){
-			return "remotetrain";
+			return "student";
 		}
-
+		
 		public String tomcat(){
-			return "apache-tomcat-7.0.59";
+			return "apache-tomcat-7.0.59.5";
 		}
+		
 	}
 
 }
