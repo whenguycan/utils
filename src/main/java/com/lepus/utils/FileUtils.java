@@ -22,7 +22,7 @@ import java.util.Map;
  */
 public class FileUtils {
 
-	private static Project project = new StudentGem("2019_03_05_14_38_25"); // template without extension
+	private static Project project = new RemoteTrain("2019_03_06_17_36_14"); // template without extension
 	private static String FILE_SEPARATOR = "\\";
 	private static String TEMP = project.desktop() + FILE_SEPARATOR + "comparator";
 	private static String SUFFIX = ".fc";
@@ -47,7 +47,7 @@ public class FileUtils {
 		System.out.println("loading template...");
 		FileComparator fm = deserialize(TEMP, template);
 		if (fm == null) {
-			System.out.println("template not found, create curr as template...");
+			System.out.println("template not found, create curr as template..., template: " + curr);
 			fm = new FileComparator(getPaths(root));
 			serialize(TEMP, fm, curr);
 		} else {
@@ -75,6 +75,7 @@ public class FileUtils {
 				operate(root, path, target);
 			}
 		}
+		System.out.println("folder is: " + target);
 		System.out.println("mission complete.");
 	}
 
@@ -300,7 +301,7 @@ public class FileUtils {
 		}
 
 		public String tomcat() {
-			return "apache-tomcat-7.0.59";
+			return "apache-tomcat-7.0.59.2";
 		}
 	}
 
